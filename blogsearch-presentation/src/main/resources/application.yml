@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: blog-searcher
+  profiles:
+    include:
+      - infrastructure
+      - domain
+      - external
+
+logging:
+  level:
+    root: info
+    com.github.minsoozz: warn
+  file:
+    name: ./logs/blog-searcher.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 7
+      file-name-pattern: ${LOG_FILE}-%d{yyyy-MM-dd}-%i.log

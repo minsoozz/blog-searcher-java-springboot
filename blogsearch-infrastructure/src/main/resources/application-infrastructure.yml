@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:minsoodb
+    username: minsoo
+    password:
+
+  jpa:
+    open-in-view: false
+    database: h2
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    maxHeap: 128M
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+    instances:
+      caller:
+        baseConfig: default
+
+logging.level:
+  org.hibernate.SQL: debug

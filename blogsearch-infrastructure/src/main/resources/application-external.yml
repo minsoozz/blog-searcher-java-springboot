@@ -1,0 +1,10 @@
+blog:
+  search:
+    kakao:
+      apiUri: https://dapi.kakao.com/v2/search/blog
+      apiKey: 66cb478ce6ce1a51b0b8ff931ffd7031
+
+    naver:
+      apiUri: https://openapi.naver.com/v1/search/blog.json
+      clientId: pXyxr5hwEtFTuu40HOdU
+      clientSecret: Rs1VxtdkX8

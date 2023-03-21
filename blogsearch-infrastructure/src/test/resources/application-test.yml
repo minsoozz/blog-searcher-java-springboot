@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    database: h2
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    maxHeap: 128M
+
+blog:
+  search:
+    kakao:
+      apiUrl: https://dapi.kakao.com/v2/search/blog
+      apiKey: 66cb478ce6ce1a51b0b8ff931ffd7031
+
+    naver:
+      apiUrl: https://openapi.naver.com/v1/search/blog.json
+      clientId: pXyxr5hwEtFTuu40HOdU
+      clientSecret: Rs1VxtdkX8
