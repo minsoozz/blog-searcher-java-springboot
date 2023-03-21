@@ -1,8 +1,8 @@
 package com.github.minsoozz.search.external.caller.impl;
 
 import com.github.minsoozz.search.exception.ApiBadRequestException;
-import com.github.minsoozz.search.external.caller.ApiResponseDto;
 import com.github.minsoozz.search.external.caller.BlogApiCaller;
+import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
 import com.github.minsoozz.search.external.dto.kakao.KakaoApiResponseDto;
 import com.github.minsoozz.search.external.enums.ApiQueryParameter;
 import com.github.minsoozz.search.external.fallback.CallerCircuitBreaker;

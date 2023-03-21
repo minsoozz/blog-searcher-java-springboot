@@ -1,5 +1,7 @@
 package com.github.minsoozz.search.external.caller;
 
+import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
+
 /**
  * @author minsoozz
  * @date 2023.03.22

@@ -3,7 +3,7 @@ package com.github.minsoozz.search.converter;
 import com.github.minsoozz.search.domain.blog.BlogSearch;
 import com.github.minsoozz.search.domain.blog.BlogSearch.Document;
 import com.github.minsoozz.search.domain.blog.BlogSearch.Meta;
-import com.github.minsoozz.search.external.caller.ApiResponseDto;
+import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
 import java.util.List;
 
 /**

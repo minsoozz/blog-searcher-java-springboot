@@ -1,10 +1,10 @@
 package com.github.minsoozz.search.external.fallback.impl;
 
 import com.github.minsoozz.search.exception.ApiBadRequestException;
-import com.github.minsoozz.search.external.caller.ApiResponseDto;
+import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
+import com.github.minsoozz.search.external.dto.fallback.FallbackApiResponseDto;
 import com.github.minsoozz.search.external.enums.ApiQueryParameter;
 import com.github.minsoozz.search.external.fallback.CallerCircuitBreaker;
-import com.github.minsoozz.search.external.fallback.dto.FallbackApiResponseDto;
 import com.github.minsoozz.search.external.properties.ExternalApiProperties;
 import com.github.minsoozz.search.utils.HttpHeaderUtils;
 import com.github.minsoozz.search.utils.ObjectMapperUtils;

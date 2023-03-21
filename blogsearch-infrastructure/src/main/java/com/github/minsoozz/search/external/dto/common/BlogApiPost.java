@@ -1,7 +1,7 @@
 package com.github.minsoozz.search.external.dto.common;
 
+import com.github.minsoozz.search.external.dto.fallback.FallbackApiResponseDto.Item;
 import com.github.minsoozz.search.external.dto.kakao.KakaoApiResponseDto.Document;
-import com.github.minsoozz.search.external.fallback.dto.FallbackApiResponseDto.Item;
 import com.github.minsoozz.search.utils.LocalDateTimeUtils;
 import java.time.LocalDateTime;
 

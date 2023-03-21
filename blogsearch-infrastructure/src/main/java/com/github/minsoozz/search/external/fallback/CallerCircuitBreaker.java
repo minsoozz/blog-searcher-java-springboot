@@ -1,6 +1,6 @@
 package com.github.minsoozz.search.external.fallback;
 
-import com.github.minsoozz.search.external.caller.ApiResponseDto;
+import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
 
 /**
  * @author minsoozz

@@ -2,7 +2,7 @@ package com.github.minsoozz.search.external.dto.kakao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.minsoozz.search.external.caller.ApiResponseDto;
+import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
 import com.github.minsoozz.search.external.dto.common.BlogApiMetadata;
 import com.github.minsoozz.search.external.dto.common.BlogApiPost;
 import java.time.LocalDateTime;
