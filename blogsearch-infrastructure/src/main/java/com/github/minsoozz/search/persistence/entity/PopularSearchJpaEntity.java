@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
@@ -53,5 +54,10 @@ public class PopularSearchJpaEntity extends BaseEntity {
 
     public boolean isNew() {
         return id == null;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.count = 1;
     }
 }
