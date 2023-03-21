@@ -13,5 +13,5 @@ public interface PopularSearchRepository extends JpaRepository<PopularSearchJpaE
 
     Optional<PopularSearchJpaEntity> findByKeyword(final String query);
 
-
+    boolean existsByKeyword(final String query);
 }

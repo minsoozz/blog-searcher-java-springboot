@@ -20,12 +20,6 @@ public class PopularSearchCommand {
     }
 
     public PopularSearchJpaEntity save(final PopularSearchJpaEntity popularSearchJpaEntity) {
-        popularSearchJpaEntity.increaseCount();
-        return popularSearchRepository.save(popularSearchJpaEntity);
-    }
-
-    public PopularSearchJpaEntity update(final PopularSearchJpaEntity popularSearchJpaEntity) {
-        popularSearchJpaEntity.increaseCount();
-        return popularSearchJpaEntity;
+        return popularSearchRepository.saveAndFlush(popularSearchJpaEntity);
     }
 }

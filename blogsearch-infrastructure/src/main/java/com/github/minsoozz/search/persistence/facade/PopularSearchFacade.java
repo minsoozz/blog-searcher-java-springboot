@@ -31,16 +31,15 @@ public class PopularSearchFacade {
 
     public PopularSearchDto saveSearchHistory(final String query) {
         return distributedLock.acquire(LOCK_NAME, () -> {
-            PopularSearchJpaEntity popularSearchJpaEntity = popularSearchQuery.findByKeyword(query)
-                .orElseGet(() -> PopularSearchJpaEntity.of(query));
-
-            if (popularSearchJpaEntity.isNew()) {
-                PopularSearchJpaEntity savedEntity = popularSearchCommand.save(popularSearchJpaEntity);
-                return new PopularSearchDto(savedEntity.getKeyword(), savedEntity.getCount());
+            boolean exists = popularSearchQuery.existsByKeyword(query);
+            if (exists) {
+                PopularSearchJpaEntity popularSearchJpaEntity = popularSearchQuery.findByKeyword(query).orElseThrow();
+                popularSearchJpaEntity.increaseCount();
+                popularSearchCommand.save(popularSearchJpaEntity);
+                return new PopularSearchDto(popularSearchJpaEntity.getKeyword(), popularSearchJpaEntity.getCount());
             }
-
-            PopularSearchJpaEntity updatedEntity = popularSearchCommand.update(popularSearchJpaEntity);
-            return new PopularSearchDto(updatedEntity.getKeyword(), updatedEntity.getCount());
+            PopularSearchJpaEntity savedEntity = popularSearchCommand.save(PopularSearchJpaEntity.of(query));
+            return new PopularSearchDto(savedEntity.getKeyword(), savedEntity.getCount());
         });
     }
 }
