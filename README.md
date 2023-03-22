@@ -12,6 +12,35 @@
 
 - 사용자들이 많이 검색한 순서대로, 최대 10개의 검색 키워드를 제공합니다.
 
+
+
+## 개발 환경
+- Java 17
+- Spring Boot 2.7
+- Gradle 7.6
+- JPA
+- QueryDSL
+
+
+
+## 외부 라이브러리 목록
+
+| Dependency                                          | Version | Purpose                                                            |
+| ---------------------------------------------------- | ------- | ------------------------------------------------------------------ |
+| io.github.resilience4j:resilience4j-all              | 2.0.2   | 서킷브레이커 기능을 제공하는 라이브러리                                |
+| com.h2database:h2                                   | 2.1.214 | 테스트용 인메모리 데이터베이스 라이브러리                                 |
+| org.apache.httpcomponents:httpclient                | 4.5.14  | HTTP 클라이언트 기능을 제공하는 라이브러리                              |
+| it.ozimov:embedded-redis                            | 0.7.2   | 테스트용 내장 Redis 인스턴스를 제공하는 라이브러리                         |
+| com.querydsl:querydsl-jpa                            | 5.0.0   | JPA를 사용하여 타입 안전한 쿼리를 작성할 수 있게 도와주는 라이브러리    |
+| com.querydsl:querydsl-apt                            | 5.0.0   | Querydsl을 사용하기 위한 애노테이션 프로세서 라이브러리                 |
+
+| Test Dependency                                     | Version | Purpose                                        |
+| ---------------------------------------------------- | ------- | ---------------------------------------------- |
+| com.h2database:h2                                   | 2.1.214 | 테스트용 인메모리 데이터베이스 라이브러리             |
+| it.ozimov:embedded-redis                            | 0.7.2   | 테스트용 내장 Redis 인스턴스를 제공하는 라이브러리    |
+
+
+
 ## Challenge
 
 ### 인프라스트럭처 모듈에서 예외가 발생했을 때 프레젠테이션 계층은 어떻게 예외를 판단할까?
@@ -26,8 +55,8 @@
 
 ![transaction](images/transaction.png)
 
-기존에 존재하는 테이블의 로우에 값을 더하는 경우 데이터베이스의 비관적, 낙관적 락을 사용하면 되지만 기존 검색 결과가 존재하지 않는 경우 `insert` 가 발생 트랜잭션의
-범위를 `조회 -> 저장, 조회 -> 수정` 으로 설정하고 동시성 문제를 해결하였습니다.
+존재하는 테이블의 로우에 접근하는 경우 데이터베이스의 비관적, 낙관적 락이 있다. 하지만 아직 저장되지 않은 시점에 다수의 사용자가 동시에 존재하지 않은 로우에 접근했을 때 동시성 문제가 발생할 수 있다고
+판단했습니다. 프로젝트를 진행하면서 해결한 방법은 트랜잭션의 범위를 `조회 -> 저장, 조회 -> 수정` 으로 설정하고 Redisson 분산 락을 활용하여 동시성 문제를 해결하였습니다.
 
 ### 새로운 검색 소스가 추가되었을 때 어떻게 하면 유연하게 대응할 수 있을까?
 
@@ -42,10 +71,14 @@ public interface ApiResponseDto {
 }
 ```
 
+
+
 ### To-BE
 
 현재 검색기록 저장과 업데이트가 하나의 트랜잭션으로 묶여 분산 락으로 구현되고 있는데, Redis Redisson 장애가 발생 시 서비스 전체에 장애가 전파될 수 있는 구조를 가지고 있습니다. Redis 를 분산하는
 방법이나, 동시성 문제를 다른 방법으로 해결할 수 있는지 고려해야 합니다.
+
+
 
 ## Overall Architecture
 
@@ -67,8 +100,6 @@ GET /api/v1/blog/search
 | page | Integer | 페이지 번호 | 
 | sort | String | 정렬 기준 (기본값: "accuracy") |
 
-
-
 > Response
 
 **Message:** success
@@ -77,7 +108,6 @@ GET /api/v1/blog/search
 | --------- | ------ | ------------------------- |
 | documents | array  | 검색 결과 문서 목록         |
 | meta      | object | 검색 결과의 메타정보 객체 |
-
 
 ### `documents` 필드
 
@@ -98,7 +128,7 @@ GET /api/v1/blog/search
 | pageableCount | integer | 현재 페이지에서 보여줄 수 있는 문서 수 |
 | totalCount    | integer | 검색 결과 문서 총 개수             |
 
----
+
 
 ### 인기검색어 조회
 
@@ -115,3 +145,12 @@ GET /api/v1/blog/search
 | keyword | String | 검색어 |  
 | count | int | 조회수 |
 
+## 참고사항
+
+- 애플리케이션, 레디스 포트가 충돌이 될 경우 프로젝트가 정상적으로 실행되지 않을 수 있습니다
+
+### 실행 명령어
+
+```
+java -jar blog-search.jar
+```
