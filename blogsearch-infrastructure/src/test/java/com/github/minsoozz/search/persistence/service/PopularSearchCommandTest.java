@@ -1,43 +1,41 @@
 package com.github.minsoozz.search.persistence.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
+import com.github.minsoozz.search.config.TestJpaConfiguration;
 import com.github.minsoozz.search.persistence.entity.PopularSearchJpaEntity;
 import com.github.minsoozz.search.persistence.repository.popularsearch.PopularSearchRepository;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(MockitoExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DataJpaTest
+@ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
+@Import({TestJpaConfiguration.class})
+@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 class PopularSearchCommandTest {
 
-    @InjectMocks
-    private PopularSearchCommand popularSearchCommand;
-
-    @Mock
+    @Autowired
     private PopularSearchRepository popularSearchRepository;
 
     @Test
-    @Order(1)
-    void 새로운_인기검색어를_저장한다() {
+    void 인기검색어를_저장한다() {
         // given
         String query = "minsoo";
         PopularSearchJpaEntity popularSearchEntity = PopularSearchJpaEntity.of(query);
 
         // when
-        when(popularSearchRepository.save(any())).thenReturn(popularSearchEntity);
-        PopularSearchJpaEntity savedPopularSearchEntity = popularSearchCommand.save(popularSearchEntity);
+        PopularSearchJpaEntity savedPopularSearchEntity = popularSearchRepository.save(popularSearchEntity);
 
         // then
         assertEquals(popularSearchEntity.getCount(), savedPopularSearchEntity.getCount());
-        assertEquals(query, popularSearchEntity.getKeyword());
+        assertEquals(query, savedPopularSearchEntity.getKeyword());
     }
 }
