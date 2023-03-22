@@ -1,8 +1,6 @@
 package com.github.minsoozz.search.persistence.facade;
 
-import com.github.minsoozz.search.lock.DistributedLock;
 import com.github.minsoozz.search.persistence.entity.PopularSearchJpaEntity;
-import com.github.minsoozz.search.persistence.service.PopularSearchCommand;
 import com.github.minsoozz.search.persistence.service.PopularSearchQuery;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -24,19 +22,12 @@ class PopularSearchFacadeTest {
     private PopularSearchFacade popularSearchFacade;
 
     @Autowired
-    private PopularSearchCommand popularSearchCommand;
-
-    @Autowired
     private PopularSearchQuery popularSearchQuery;
-
-    @Autowired
-    private DistributedLock distributedLock;
-
 
     private final String query = "minsoo";
 
     @Test
-    void 동시에_100명의_사용자가_분산락이_적용된_메소드를_호출한다() throws InterruptedException {
+    void 동시에_100명의_사용자가_같은_키워드로_검색한다() throws InterruptedException {
         // given
         final int peopleCount = 100;
         final ExecutorService executorService = Executors.newFixedThreadPool(peopleCount);
