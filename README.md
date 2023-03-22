@@ -139,6 +139,7 @@ GET /api/v1/blog/search
 ```
 GET /actuator/health
 ```
+
 > Response
 
 | Component       | Status  | Details                                           |
@@ -149,13 +150,14 @@ GET /actuator/health
 | ping            | UP      |                                                  |
 | redis           | UP      | version: 2.8.19                                   |
 
+## 다운로드 및 실행
 
-## 참고사항
+https://github.com/minsoozz/blog-searcher-java-springboot/blob/main/lib/blog-searcher.jar
+
+```
+java -jar blog-searcher.jar
+```
+
+### 참고 사항
 
 - 애플리케이션, 레디스 포트가 이미 실행중인 경우 프로젝트가 정상적으로 실행되지 않을 수 있습니다.
-
-### 실행 명령어
-
-```
-java -jar blog-search.jar
-```
