@@ -26,7 +26,7 @@ public class BlogSearchPopularFacade {
 
     public BlogSearch searchBlog(final BlogSearchRequest blogSearchRequest) {
         BlogSearch blogSearch = blogSearchService.getBlogSearchResults(blogSearchRequest);
-        popularSearchService.saveSearchHistory(blogSearchRequest.query());
+        popularSearchService.savePopularSearch(blogSearchRequest.query());
         return blogSearch;
     }
 }

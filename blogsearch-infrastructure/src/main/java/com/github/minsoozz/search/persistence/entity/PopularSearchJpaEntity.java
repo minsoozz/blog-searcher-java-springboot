@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @date 2023.03.22
  */
 @Entity
-@Table(name = "popular_search_history",
+@Table(name = "popular_search",
     indexes = {@Index(name = "idx_popular_search_count", columnList = "count")})
 public class PopularSearchJpaEntity extends BaseEntity {
 

@@ -45,7 +45,7 @@ class PopularSearchFacadeTest {
         // when
         for (int i = 0; i < peopleCount; i++) {
             executorService.execute(() -> {
-                popularSearchFacade.saveSearchHistory(query);
+                popularSearchFacade.savePopularSearch(query);
                 countDownLatch.countDown();
             });
         }

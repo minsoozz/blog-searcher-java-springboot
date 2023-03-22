@@ -30,9 +30,9 @@ public class PopularSearchService {
         this.popularSearchFacade = popularSearchFacade;
     }
 
-    public PopularSearch saveSearchHistory(final String query) {
+    public PopularSearch savePopularSearch(final String query) {
         try {
-            PopularSearchDto popularSearchDto = popularSearchFacade.saveSearchHistory(query);
+            PopularSearchDto popularSearchDto = popularSearchFacade.savePopularSearch(query);
             return PopularSearchConverter.toPopularSearch(popularSearchDto);
         } catch (DistributedLockingException | DistributedLockAcquisitionFailedException e) {
             throw new FailedToAcquireLockException();

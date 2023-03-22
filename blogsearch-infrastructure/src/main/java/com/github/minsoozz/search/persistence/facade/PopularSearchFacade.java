@@ -29,7 +29,7 @@ public class PopularSearchFacade {
         this.distributedLock = distributedLock;
     }
 
-    public PopularSearchDto saveSearchHistory(final String query) {
+    public PopularSearchDto savePopularSearch(final String query) {
         return distributedLock.acquire(LOCK_NAME, () -> {
             boolean exists = popularSearchQuery.existsByKeyword(query);
             if (exists) {
