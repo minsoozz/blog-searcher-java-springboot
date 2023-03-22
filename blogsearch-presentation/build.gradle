@@ -1,3 +1,7 @@
+bootJar {
+    archiveFileName = 'blog-searcher.jar'
+    archiveVersion = '1.0.0'
+}
 dependencies {
     implementation project(':blogsearch-domain')
     implementation 'org.springframework.boot:spring-boot-starter-web'
