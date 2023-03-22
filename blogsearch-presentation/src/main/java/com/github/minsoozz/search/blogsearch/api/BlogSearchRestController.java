@@ -4,7 +4,7 @@ import com.github.minsoozz.search.blogsearch.dto.BlogSearchRequestDto;
 import com.github.minsoozz.search.domain.blog.BlogSearch;
 import com.github.minsoozz.search.dto.BlogSearchRequest;
 import com.github.minsoozz.search.facade.BlogSearchPopularFacade;
-import com.github.minsoozz.search.popularsearch.dto.BaseResponseDto;
+import com.github.minsoozz.search.common.dto.BaseResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

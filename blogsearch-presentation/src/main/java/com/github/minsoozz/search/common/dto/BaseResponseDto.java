@@ -1,4 +1,4 @@
-package com.github.minsoozz.search.popularsearch.dto;
+package com.github.minsoozz.search.common.dto;
 
 /**
  * @author minsoozz
