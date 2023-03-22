@@ -4,16 +4,16 @@ package com.github.minsoozz.search.external.enums;
  * @author minsoozz
  * @date 2023.03.22
  */
-public enum ApiQueryParameter {
-    KAKAO("query", "recency", "page", "size"),
-    NAVER("query", "date", "start", "display");
+public enum ApiQueryParameterKey {
+    KAKAO("query", "sort", "page", "size"),
+    NAVER("query", "sort", "start", "display");
 
     private final String query;
     private final String sort;
     private final String page;
     private final String size;
 
-    ApiQueryParameter(String query, String sort, String page, String size) {
+    ApiQueryParameterKey(String query, String sort, String page, String size) {
         this.query = query;
         this.sort = sort;
         this.page = page;

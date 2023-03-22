@@ -3,7 +3,7 @@ package com.github.minsoozz.search.external.fallback.impl;
 import com.github.minsoozz.search.exception.ApiBadRequestException;
 import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
 import com.github.minsoozz.search.external.dto.fallback.FallbackApiResponseDto;
-import com.github.minsoozz.search.external.enums.ApiQueryParameter;
+import com.github.minsoozz.search.external.enums.ApiQueryParameterKey;
 import com.github.minsoozz.search.external.fallback.CallerCircuitBreaker;
 import com.github.minsoozz.search.external.properties.ExternalApiProperties;
 import com.github.minsoozz.search.utils.HttpHeaderUtils;
@@ -43,9 +43,9 @@ public class CallerCircuitBreakerImpl implements CallerCircuitBreaker {
     @Override
     public ApiResponseDto defaultFallback(final String query, final Integer page, final String sort) {
         UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(externalApiProperties.naver().apiUri())
-            .queryParam(ApiQueryParameter.NAVER.getQuery(), query)
-            .queryParam(ApiQueryParameter.NAVER.getPage(), page)
-            .queryParam(ApiQueryParameter.NAVER.getSort(), convertSortOrderToFallbackSortString(sort))
+            .queryParam(ApiQueryParameterKey.NAVER.getQuery(), query)
+            .queryParam(ApiQueryParameterKey.NAVER.getPage(), page)
+            .queryParam(ApiQueryParameterKey.NAVER.getSort(), convertSortOrderToFallbackSortString(sort))
             .build();
 
         HttpHeaders headers = HttpHeaderUtils.createJsonMediaType();

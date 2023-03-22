@@ -4,7 +4,7 @@ import com.github.minsoozz.search.exception.ApiBadRequestException;
 import com.github.minsoozz.search.external.caller.BlogApiCaller;
 import com.github.minsoozz.search.external.dto.common.ApiResponseDto;
 import com.github.minsoozz.search.external.dto.kakao.KakaoApiResponseDto;
-import com.github.minsoozz.search.external.enums.ApiQueryParameter;
+import com.github.minsoozz.search.external.enums.ApiQueryParameterKey;
 import com.github.minsoozz.search.external.fallback.CallerCircuitBreaker;
 import com.github.minsoozz.search.external.properties.ExternalApiProperties;
 import com.github.minsoozz.search.utils.HttpHeaderUtils;
@@ -51,9 +51,9 @@ public class KakaoApiCaller implements BlogApiCaller {
     @CircuitBreaker(name = "caller", fallbackMethod = "fallback")
     public ApiResponseDto searchBlogs(final String query, final Integer page, final String sort) {
         UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(externalApiProperties.kakao().apiUri())
-            .queryParam(ApiQueryParameter.KAKAO.getQuery(), query)
-            .queryParam(ApiQueryParameter.KAKAO.getPage(), page)
-            .queryParam(ApiQueryParameter.KAKAO.getSort(), sort)
+            .queryParam(ApiQueryParameterKey.KAKAO.getQuery(), query)
+            .queryParam(ApiQueryParameterKey.KAKAO.getPage(), page)
+            .queryParam(ApiQueryParameterKey.KAKAO.getSort(), sort)
             .build();
 
         HttpHeaders headers = HttpHeaderUtils.createJsonMediaType();
