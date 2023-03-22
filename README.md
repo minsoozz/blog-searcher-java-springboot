@@ -68,8 +68,7 @@ public interface ApiResponseDto {
 
 ### To-BE
 
-현재 검색기록 저장과 업데이트가 하나의 트랜잭션으로 묶여 분산 락으로 구현되고 있는데, Redis Redisson 장애가 발생 시 서비스 전체에 장애가 전파될 수 있는 구조를 가지고 있습니다. Redis 를 분산하는
-방법이나, 동시성 문제를 다른 방법으로 해결할 수 있는지 고려해야 합니다.
+현재 검색기록 저장과 업데이트가 하나의 트랜잭션으로 묶여 분산 락으로 구현되고 있는데, Redis Redisson 장애가 발생 시 서비스 전체에 장애가 전파될 수 있는 구조를 가지고 있습니다. Redis 구성을 이중화 하거나, 동시성 문제를 다른 방법으로 해결할 수 있는지 고려해야 합니다.
 
 ## Overall Architecture
 
@@ -85,11 +84,11 @@ GET /api/v1/blog/search
 
 > Request
 
-| 필드명 | 타입 | 설명 | 
-| --- | --- | --- |
-| query | String | 검색어 | 
-| page | Integer | 페이지 번호 | 
-| sort | String | 정렬 기준 (기본값: "accuracy") accuracy(정확도순) 또는 recency(최신순) |
+| 필드명 | 타입 | 설명 | 필수 여부
+| --- | --- | --- | --- |
+| query | String | 검색어 | O | 
+| page | Integer | 페이지 번호 (기본값: 1) | X |
+| sort | String | 정렬 기준 (기본값: "accuracy") accuracy(정확도순) 또는 recency(최신순) | X |
 
 > Response
 
@@ -97,32 +96,32 @@ GET /api/v1/blog/search
 
 | 필드명    | 타입   | 설명                      |
 | --------- | ------ | ------------------------- |
-| documents | array  | 검색 결과 문서 목록         |
-| meta      | object | 검색 결과의 메타정보 객체 |
+| documents | array  | 블로그 목록         |
+| meta      | object | 메타정보 객체 |
 
 ### `documents` 필드
 
 | 필드명    | 타입   | 설명                      |
 | --------- | ------ | ------------------------- |
 | blogname  | string | 블로그 이름               |
-| contents  | string | 문서 내용                 |
-| datetime  | string | 문서 작성 일시            |
-| thumbnail | string | 썸네일 이미지 URL         |
-| title     | string | 문서 제목                 |
-| url       | string | 문서 URL                  |
+| contents  | string | 블로그 내용                 |
+| datetime  | string | 작성 일시            |
+| thumbnail | string | 블로그 썸네일 이미지 URL         |
+| title     | string | 블로그 제목                 |
+| url       | string | 블로그 URL                  |
 
 ### `meta` 필드
 
 | 필드명        | 타입    | 설명                              |
 | ------------- | ------- | --------------------------------- |
 | isEnd         | boolean | 마지막 페이지 여부 (true/false) |
-| pageableCount | integer | 현재 페이지에서 보여줄 수 있는 문서 수 |
+| pageableCount | integer | total_count 중 노출 가능 문서 수 |
 | totalCount    | integer | 검색 결과 문서 총 개수             |
 
 ### 인기검색어 조회
 
 ```
-GET /api/v1/blog/search
+GET /api/v1/popular/search
 ```
 
 > Response
