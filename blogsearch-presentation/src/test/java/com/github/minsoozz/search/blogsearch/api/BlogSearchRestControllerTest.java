@@ -11,7 +11,6 @@ import com.github.minsoozz.search.domain.blog.BlogSearch;
 import com.github.minsoozz.search.domain.blog.BlogSearch.Document;
 import com.github.minsoozz.search.domain.blog.BlogSearch.Meta;
 import com.github.minsoozz.search.dto.BlogSearchRequest;
-import com.github.minsoozz.search.external.enums.ApiQueryParameterKey;
 import com.github.minsoozz.search.facade.BlogSearchPopularFacade;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,9 +53,9 @@ class BlogSearchRestControllerTest {
         BlogSearch blogSearch = new BlogSearch(List.of(document), meta);
 
         MultiValueMap<String, String> parameterMap = new LinkedMultiValueMap<>();
-        parameterMap.add(ApiQueryParameterKey.KAKAO.getQuery(), query);
-        parameterMap.add(ApiQueryParameterKey.KAKAO.getPage(), String.valueOf(page));
-        parameterMap.add(ApiQueryParameterKey.KAKAO.getSort(), sort);
+        parameterMap.add("query", query);
+        parameterMap.add("page", String.valueOf(page));
+        parameterMap.add("sort", "recency");
 
         final BlogSearchRequest blogSearchRequest = new BlogSearchRequest(query, page, sort);
         given(blogSearchPopularFacade.searchBlog(blogSearchRequest)).willReturn(blogSearch);
