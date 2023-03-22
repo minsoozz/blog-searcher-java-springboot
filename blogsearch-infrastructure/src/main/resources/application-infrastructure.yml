@@ -36,5 +36,18 @@ resilience4j:
       caller:
         baseConfig: default
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+  health:
+    circuitbreakers:
+      enabled: true
+
 logging.level:
   org.hibernate.SQL: debug
