@@ -47,7 +47,7 @@ class PopularSearchServiceTest {
     @Test
     void 인기검색어_목록을_반환한다() {
         // given
-        List<PopularSearchDto> fixture = fixture();
+        List<PopularSearchDto> fixture = getFixture();
 
         // when
         when(popularSearchQuery.findTop10Keywords()).thenReturn(fixture);
@@ -58,7 +58,7 @@ class PopularSearchServiceTest {
         assertEquals(fixture.size(), popularSearches.size());
     }
 
-    private List<PopularSearchDto> fixture() {
+    private List<PopularSearchDto> getFixture() {
         return List.of(
             new PopularSearchDto("은행", 1),
             new PopularSearchDto("투자", 2),
