@@ -74,6 +74,9 @@ public class KakaoApiCaller implements BlogApiCaller {
         }
     }
 
+    /**
+     * 카카오 API 호출 실패 시 서킷브레이커가 실행된다
+     */
     public ApiResponseDto fallback(final String query, final Integer page, final String sort, Throwable t) {
         logger.error("CircuitBreaker fallback start : {}", t.getMessage());
         return callerCircuitBreaker.defaultFallback(query, page, sort);

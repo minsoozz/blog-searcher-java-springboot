@@ -1,7 +1,7 @@
 package com.github.minsoozz.search.popularsearch.api;
 
-import com.github.minsoozz.search.domain.popularsearch.PopularSearch;
 import com.github.minsoozz.search.common.dto.BaseResponseDto;
+import com.github.minsoozz.search.domain.popularsearch.PopularSearch;
 import com.github.minsoozz.search.service.PopularSearchService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +22,9 @@ public class PopularSearchRestController {
         this.popularSearchService = popularSearchService;
     }
 
+    /**
+     * 인기 검색어 조회를 조회한다
+     */
     @GetMapping("/search")
     public BaseResponseDto<List<PopularSearch>> getPopularSearchResults() {
         return BaseResponseDto.ok(popularSearchService.searchPopularKeywords());

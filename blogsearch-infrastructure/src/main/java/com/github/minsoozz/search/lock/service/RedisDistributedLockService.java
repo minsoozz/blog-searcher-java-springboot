@@ -22,6 +22,9 @@ public class RedisDistributedLockService implements DistributedLock {
         this.redissonClient = redissonClient;
     }
 
+    /**
+     * 분산 락을 획득하고 비즈니스 로직을 수행한다
+     */
     @Override
     public <T> T acquire(final String lockName, final Supplier<T> run)
         throws DistributedLockAcquisitionFailedException, DistributedLockingException {
