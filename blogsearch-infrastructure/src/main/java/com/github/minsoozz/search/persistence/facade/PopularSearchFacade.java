@@ -1,5 +1,6 @@
 package com.github.minsoozz.search.persistence.facade;
 
+import com.github.minsoozz.search.exception.PopularSearchEntityNotFoundException;
 import com.github.minsoozz.search.lock.DistributedLock;
 import com.github.minsoozz.search.persistence.dto.PopularSearchDto;
 import com.github.minsoozz.search.persistence.entity.PopularSearchJpaEntity;
@@ -33,7 +34,8 @@ public class PopularSearchFacade {
         return distributedLock.acquire(LOCK_NAME, () -> {
             boolean exists = popularSearchQuery.existsByKeyword(query);
             if (exists) {
-                PopularSearchJpaEntity popularSearchJpaEntity = popularSearchQuery.findByKeyword(query).orElseThrow();
+                PopularSearchJpaEntity popularSearchJpaEntity = popularSearchQuery.findByKeyword(query)
+                    .orElseThrow(PopularSearchEntityNotFoundException::new);
                 popularSearchJpaEntity.increaseCount();
                 popularSearchCommand.save(popularSearchJpaEntity);
                 return new PopularSearchDto(popularSearchJpaEntity.getKeyword(), popularSearchJpaEntity.getCount());
