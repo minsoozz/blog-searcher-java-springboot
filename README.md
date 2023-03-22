@@ -1,0 +1,117 @@
+# blog-searcher-java-springboot
+
+## 기능 요구사항
+
+1. 블로그 검색
+
+- 키워드를 통해 블로그를 검색할 수 있습니다.
+- 검색 결과에서 Sorting(정확도순, 최신순) 기능을 지원합니다.
+- 검색 결과는 Pagination 형태로 제공합니다.
+
+2. 인기 검색어 목록
+
+- 사용자들이 많이 검색한 순서대로, 최대 10개의 검색 키워드를 제공합니다.
+
+## Challenge
+
+### 인프라스트럭처 모듈에서 예외가 발생했을 때 프레젠테이션 계층은 어떻게 예외를 판단할까?
+
+- 모듈의 경계 간 분리로 인해 예외를 전파하는 전략으로 판단
+    1. infrastructure 계층 예외 발생 시 -> Domain 계층의 예외로 포장
+    2. Domain 계층 예외 발생 시 ExceptionHandler 에서 사용자에게 예외 전달
+
+계층마다 예외 발생 시 로그를 남기도록 하였으며, 서버, 외부 API의 장애가 아닌 클라이언트의 오류(토큰, 헤더 누락 등) 는 클라이언트에게 예외를 전달하도록 구현하였습니다.
+
+### 다수의 사용자가 동시에 검색을 요청하는 경우 트랜잭션의 범위를 어떻게 설정해야 할까?
+
+![transaction](images/transaction.png)
+
+기존에 존재하는 테이블의 로우에 값을 더하는 경우 데이터베이스의 비관적, 낙관적 락을 사용하면 되지만 기존 검색 결과가 존재하지 않는 경우 `insert` 가 발생 트랜잭션의
+범위를 `조회 -> 저장, 조회 -> 수정` 으로 설정하고 동시성 문제를 해결하였습니다.
+
+### 새로운 검색 소스가 추가되었을 때 어떻게 하면 유연하게 대응할 수 있을까?
+
+기본으로 제공하는 카카오 API 를 기준으로 공통된 필드를 추출하고 인터페이스로 추상화하여 확장에 고려한 설계를 하였습니다.
+
+```
+public interface ApiResponseDto {
+
+    List<BlogApiPost> getContents();
+
+    BlogApiMetadata getMeta();
+}
+```
+
+### To-BE
+
+현재 검색기록 저장과 업데이트가 하나의 트랜잭션으로 묶여 분산 락으로 구현되고 있는데, Redis Redisson 장애가 발생 시 서비스 전체에 장애가 전파될 수 있는 구조를 가지고 있습니다. Redis 를 분산하는
+방법이나, 동시성 문제를 다른 방법으로 해결할 수 있는지 고려해야 합니다.
+
+## Overall Architecture
+
+![architecture](images/architecture.png)
+
+## API 명세
+
+### 블로그 검색
+
+```
+GET /api/v1/blog/search
+```
+
+> Request
+
+| 필드명 | 타입 | 설명 | 
+| --- | --- | --- |
+| query | String | 검색어 | 
+| page | Integer | 페이지 번호 | 
+| sort | String | 정렬 기준 (기본값: "accuracy") |
+
+
+
+> Response
+
+**Message:** success
+
+| 필드명    | 타입   | 설명                      |
+| --------- | ------ | ------------------------- |
+| documents | array  | 검색 결과 문서 목록         |
+| meta      | object | 검색 결과의 메타정보 객체 |
+
+
+### `documents` 필드
+
+| 필드명    | 타입   | 설명                      |
+| --------- | ------ | ------------------------- |
+| blogname  | string | 블로그 이름               |
+| contents  | string | 문서 내용                 |
+| datetime  | string | 문서 작성 일시            |
+| thumbnail | string | 썸네일 이미지 URL         |
+| title     | string | 문서 제목                 |
+| url       | string | 문서 URL                  |
+
+### `meta` 필드
+
+| 필드명        | 타입    | 설명                              |
+| ------------- | ------- | --------------------------------- |
+| isEnd         | boolean | 마지막 페이지 여부 (true/false) |
+| pageableCount | integer | 현재 페이지에서 보여줄 수 있는 문서 수 |
+| totalCount    | integer | 검색 결과 문서 총 개수             |
+
+---
+
+### 인기검색어 조회
+
+```
+GET /api/v1/blog/search
+```
+
+> Response
+
+**Message:** success
+
+| 필드명 | 타입 | 설명 | 
+| --- | --- | --- |
+| keyword | String | 검색어 |  
+| count | int | 조회수 |
+
