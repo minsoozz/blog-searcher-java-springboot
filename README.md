@@ -12,16 +12,13 @@
 
 - 사용자들이 많이 검색한 순서대로, 최대 10개의 검색 키워드를 제공합니다.
 
-
-
 ## 개발 환경
+
 - Java 17
 - Spring Boot 2.7
 - Gradle 7.6
 - JPA
 - QueryDSL
-
-
 
 ## 외부 라이브러리 목록
 
@@ -38,8 +35,6 @@
 | ---------------------------------------------------- | ------- | ---------------------------------------------- |
 | com.h2database:h2                                   | 2.1.214 | 테스트용 인메모리 데이터베이스 라이브러리             |
 | it.ozimov:embedded-redis                            | 0.7.2   | 테스트용 내장 Redis 인스턴스를 제공하는 라이브러리    |
-
-
 
 ## Challenge
 
@@ -71,14 +66,10 @@ public interface ApiResponseDto {
 }
 ```
 
-
-
 ### To-BE
 
 현재 검색기록 저장과 업데이트가 하나의 트랜잭션으로 묶여 분산 락으로 구현되고 있는데, Redis Redisson 장애가 발생 시 서비스 전체에 장애가 전파될 수 있는 구조를 가지고 있습니다. Redis 를 분산하는
 방법이나, 동시성 문제를 다른 방법으로 해결할 수 있는지 고려해야 합니다.
-
-
 
 ## Overall Architecture
 
@@ -128,8 +119,6 @@ GET /api/v1/blog/search
 | pageableCount | integer | 현재 페이지에서 보여줄 수 있는 문서 수 |
 | totalCount    | integer | 검색 결과 문서 총 개수             |
 
-
-
 ### 인기검색어 조회
 
 ```
@@ -145,9 +134,25 @@ GET /api/v1/blog/search
 | keyword | String | 검색어 |  
 | count | int | 조회수 |
 
+### Health Check
+
+```
+GET /actuator/health
+```
+> Response
+
+| Component       | Status  | Details                                           |
+| --------------- | ------- | -------------------------------------------------- |
+| circuitBreakers | UNKNOWN |                                                  |
+| db              | UP      | database: H2, validationQuery: isValid()          |
+| diskSpace       | UP      | total: 0, free: 0, threshold: 0, exists: true |
+| ping            | UP      |                                                  |
+| redis           | UP      | version: 2.8.19                                   |
+
+
 ## 참고사항
 
-- 애플리케이션, 레디스 포트가 충돌이 될 경우 프로젝트가 정상적으로 실행되지 않을 수 있습니다
+- 애플리케이션, 레디스 포트가 이미 실행중인 경우 프로젝트가 정상적으로 실행되지 않을 수 있습니다.
 
 ### 실행 명령어
 
