@@ -1,7 +1,13 @@
 spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
+    username: minsoo
+    password:
   jpa:
     database: h2
     show-sql: true
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
     properties:
