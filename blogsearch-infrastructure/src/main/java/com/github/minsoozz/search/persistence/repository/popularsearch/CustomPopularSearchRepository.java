@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface CustomPopularSearchRepository {
 
-    List<PopularSearchDto> findTopKeywords(final int limit);
+    List<PopularSearchDto> findTop10Keywords();
 }

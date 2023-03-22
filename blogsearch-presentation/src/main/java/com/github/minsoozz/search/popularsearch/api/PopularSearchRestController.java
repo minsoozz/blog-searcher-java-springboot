@@ -6,7 +6,6 @@ import com.github.minsoozz.search.service.PopularSearchService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,8 +23,7 @@ public class PopularSearchRestController {
     }
 
     @GetMapping("/search")
-    public BaseResponseDto<List<PopularSearch>> getPopularSearchResults(
-        @RequestParam(defaultValue = "10") final int limit) {
-        return BaseResponseDto.ok(popularSearchService.searchPopularKeywords(limit));
+    public BaseResponseDto<List<PopularSearch>> getPopularSearchResults() {
+        return BaseResponseDto.ok(popularSearchService.searchPopularKeywords());
     }
 }

@@ -39,8 +39,9 @@ public class PopularSearchService {
         }
     }
 
-    public List<PopularSearch> searchPopularKeywords(final int limit) {
-        return popularSearchQuery.findTopKeywords(limit).stream()
+    public List<PopularSearch> searchPopularKeywords() {
+        return popularSearchQuery.findTop10Keywords()
+            .stream()
             .map(dto -> new PopularSearch(dto.keyword(), dto.count()))
             .toList();
     }

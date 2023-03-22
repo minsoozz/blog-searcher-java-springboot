@@ -3,8 +3,8 @@ package com.github.minsoozz.search.persistence.repository.popularsearch.impl;
 import static com.github.minsoozz.search.persistence.entity.QPopularSearchJpaEntity.popularSearchJpaEntity;
 
 import com.github.minsoozz.search.persistence.dto.PopularSearchDto;
-import com.github.minsoozz.search.persistence.dto.QPopularSearchDto;
 import com.github.minsoozz.search.persistence.repository.popularsearch.CustomPopularSearchRepository;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -23,14 +23,15 @@ public class CustomPopularSearchRepositoryImpl implements CustomPopularSearchRep
     }
 
     @Override
-    public List<PopularSearchDto> findTopKeywords(final int limit) {
+    public List<PopularSearchDto> findTop10Keywords() {
         return jpaQueryFactory.select(
-                new QPopularSearchDto(
+                Projections.constructor(
+                    PopularSearchDto.class,
                     popularSearchJpaEntity.keyword,
                     popularSearchJpaEntity.count))
             .from(popularSearchJpaEntity)
-            .limit(limit)
             .orderBy(popularSearchJpaEntity.count.desc())
+            .limit(10)
             .fetch();
     }
 }

@@ -26,8 +26,8 @@ public class PopularSearchQuery {
         return popularSearchRepository.findByKeyword(query);
     }
 
-    public List<PopularSearchDto> findTopKeywords(final int limit) {
-        return popularSearchRepository.findTopKeywords(limit);
+    public List<PopularSearchDto> findTop10Keywords() {
+        return popularSearchRepository.findTop10Keywords();
     }
 
     public boolean existsByKeyword(final String query) {
