@@ -5,6 +5,7 @@ import com.github.minsoozz.search.domain.blog.BlogSearch.Document;
 import com.github.minsoozz.search.domain.blog.BlogSearch.Meta;
 import com.github.minsoozz.search.dto.BlogSearchRequest;
 import com.github.minsoozz.search.service.BlogSearchService;
+import com.github.minsoozz.search.service.PopularSearchService;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +24,9 @@ class BlogSearchPopularFacadeTest {
 
     @Mock
     BlogSearchService blogSearchService;
+
+    @Mock
+    PopularSearchService popularSearchService;
 
     @Test
     void 블로그_도메인을_반환한다() {
