@@ -89,7 +89,7 @@ GET /api/v1/blog/search
 | --- | --- | --- |
 | query | String | 검색어 | 
 | page | Integer | 페이지 번호 | 
-| sort | String | 정렬 기준 (기본값: "accuracy") |
+| sort | String | 정렬 기준 (기본값: "accuracy") accuracy(정확도순) 또는 recency(최신순) |
 
 > Response
 
