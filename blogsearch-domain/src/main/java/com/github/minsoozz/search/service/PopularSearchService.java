@@ -10,14 +10,12 @@ import com.github.minsoozz.search.persistence.facade.PopularSearchFacade;
 import com.github.minsoozz.search.persistence.service.PopularSearchQuery;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author minsoozz
  * @date 2023.03.22
  */
 @Service
-@Transactional
 public class PopularSearchService {
 
     private final PopularSearchQuery popularSearchQuery;
