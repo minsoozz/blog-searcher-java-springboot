@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * @author minsoozz
@@ -32,6 +33,10 @@ public class PopularSearchJpaEntity extends BaseEntity {
 
     private int count;
 
+    @Version
+    @Column(name = "version")
+    private int version;
+
     public PopularSearchJpaEntity(String keyword) {
         this.keyword = keyword;
     }
@@ -50,10 +55,6 @@ public class PopularSearchJpaEntity extends BaseEntity {
 
     public void increaseCount() {
         this.count++;
-    }
-
-    public boolean isNew() {
-        return id == null;
     }
 
     @PrePersist
