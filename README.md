@@ -133,6 +133,28 @@ GET /api/v1/popular/search
 | keyword | String | 검색어 |  
 | count | int | 조회수 |
 
+### Circuit Breakers
+
+```
+GET /actuator/circuitbreakers
+```
+
+> Response
+
+| 필드명 | 설명 |
+|---|---|
+| failureRate | 실패율 |
+| slowCallRate | 느린 요청 비율 |
+| failureRateThreshold | 실패율 임계값 |
+| slowCallRateThreshold | 느린 요청 비율 임계값 |
+| bufferedCalls | 버퍼링된 요청 수 |
+| failedCalls | 실패한 요청 수 |
+| slowCalls | 느린 요청 수 |
+| slowFailedCalls | 느린 요청 중 실패한 요청 수 |
+| notPermittedCalls | 차단된 요청 수 |
+| state | 서킷 브레이커의 상태 (OPEN, CLOSED, HALF_OPEN) |
+
+
 ### Health Check
 
 ```
