@@ -41,7 +41,9 @@ public class RestTemplateConfiguration {
         CloseableHttpClient closeableHttpClient = HttpClientBuilder.create()
             .setMaxConnTotal(100)
             .setMaxConnPerRoute(5)
-            .setConnectionTimeToLive(5, TimeUnit.SECONDS)
+            .setConnectionTimeToLive(30, TimeUnit.SECONDS)
+            .evictIdleConnections(30, TimeUnit.SECONDS)
+            .evictExpiredConnections()
             .build();
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         factory.setHttpClient(closeableHttpClient);
