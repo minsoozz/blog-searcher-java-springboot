@@ -17,7 +17,7 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = "popular_search",
-    indexes = {@Index(name = "idx_popular_search_count", columnList = "count")})
+    indexes = {@Index(name = "idx_popular_search_keyword", columnList = "keyword")})
 public class PopularSearchJpaEntity extends BaseEntity {
 
     protected PopularSearchJpaEntity() {
