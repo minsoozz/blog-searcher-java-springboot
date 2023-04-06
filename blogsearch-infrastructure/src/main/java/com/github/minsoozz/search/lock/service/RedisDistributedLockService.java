@@ -30,7 +30,7 @@ public class RedisDistributedLockService implements DistributedLock {
         throws DistributedLockAcquisitionFailedException, DistributedLockingException {
         final RLock lock = redissonClient.getLock(lockName);
         try {
-            boolean acquired = lock.tryLock(5, 1, TimeUnit.SECONDS);
+            boolean acquired = lock.tryLock(5, 3, TimeUnit.SECONDS);
             if (!acquired) {
                 throw new DistributedLockAcquisitionFailedException(lockName);
             }
