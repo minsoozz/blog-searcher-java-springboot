@@ -7,12 +7,14 @@ import com.github.minsoozz.search.persistence.entity.PopularSearchJpaEntity;
 import com.github.minsoozz.search.persistence.service.PopularSearchCommand;
 import com.github.minsoozz.search.persistence.service.PopularSearchQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author minsoozz
  * @date 2023.03.22
  */
 @Service
+@Transactional
 public class PopularSearchFacade {
 
     private static final String LOCK_NAME = "popular-lock";
