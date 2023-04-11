@@ -18,6 +18,6 @@ public class PopularSearchCommand {
     }
 
     public PopularSearchJpaEntity save(final PopularSearchJpaEntity popularSearchJpaEntity) {
-        return popularSearchRepository.saveAndFlush(popularSearchJpaEntity);
+        return popularSearchRepository.save(popularSearchJpaEntity);
     }
 }
