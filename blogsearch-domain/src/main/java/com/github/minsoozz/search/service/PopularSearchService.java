@@ -40,7 +40,7 @@ public class PopularSearchService {
     public List<PopularSearch> searchPopularKeywords() {
         return popularSearchQuery.findTop10Keywords()
             .stream()
-            .map(dto -> new PopularSearch(dto.keyword(), dto.count()))
+            .map(PopularSearch::of)
             .toList();
     }
 }
