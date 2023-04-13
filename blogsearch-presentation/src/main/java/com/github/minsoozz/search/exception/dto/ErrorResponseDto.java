@@ -1,4 +1,4 @@
-package com.github.minsoozz.search.aop.dto;
+package com.github.minsoozz.search.exception.dto;
 
 import org.springframework.http.HttpStatus;
 

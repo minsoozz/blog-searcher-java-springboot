@@ -1,8 +1,6 @@
-package com.github.minsoozz.search.aop;
+package com.github.minsoozz.search.exception;
 
-import com.github.minsoozz.search.aop.dto.ErrorResponseDto;
-import com.github.minsoozz.search.exception.BlogSearchException;
-import com.github.minsoozz.search.exception.FailedToAcquireLockException;
+import com.github.minsoozz.search.exception.dto.ErrorResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -36,6 +34,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     ErrorResponseDto handleException(final Exception e) {
+        logger.error(e.getMessage());
+        return ErrorResponseDto.toErrorResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Throwable.class)
+    ErrorResponseDto handleException(final Throwable e) {
         logger.error(e.getMessage());
         return ErrorResponseDto.toErrorResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
