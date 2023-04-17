@@ -29,8 +29,7 @@ public class PopularSearchFacade {
     }
 
     public PopularSearchDto savePopularSearch(final String query) {
-        final String lockName = "popular-lock";
-        return distributedLock.acquire(lockName, () -> {
+        return distributedLock.acquire(query, () -> {
             boolean exists = popularSearchQuery.existsByKeyword(query);
             if (exists) {
                 PopularSearchJpaEntity popularSearchJpaEntity = popularSearchQuery.findByKeyword(query)
