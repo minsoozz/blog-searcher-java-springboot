@@ -17,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PopularSearchFacade {
 
-    private static final String LOCK_NAME = "popular-lock";
-
     private final PopularSearchCommand popularSearchCommand;
     private final PopularSearchQuery popularSearchQuery;
     private final DistributedLock distributedLock;
@@ -31,7 +29,8 @@ public class PopularSearchFacade {
     }
 
     public PopularSearchDto savePopularSearch(final String query) {
-        return distributedLock.acquire(LOCK_NAME, () -> {
+        final String lockName = "popular-lock";
+        return distributedLock.acquire(lockName, () -> {
             boolean exists = popularSearchQuery.existsByKeyword(query);
             if (exists) {
                 PopularSearchJpaEntity popularSearchJpaEntity = popularSearchQuery.findByKeyword(query)
