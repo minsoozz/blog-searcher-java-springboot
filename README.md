@@ -173,10 +173,10 @@ GET /actuator/health
 
 ## 다운로드 및 실행
 
-https://github.com/minsoozz/blog-searcher-java-springboot/blob/main/lib/blog-searcher.jar
+https://github.com/minsoozz/blog-searcher-java-springboot/blob/main/lib
 
 ```
-java -jar blog-searcher.jar
+java -jar blog-searcher-1.0.0.jar
 ```
 
 ### 참고 사항
