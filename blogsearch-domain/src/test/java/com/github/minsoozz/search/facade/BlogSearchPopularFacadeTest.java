@@ -54,7 +54,7 @@ class BlogSearchPopularFacadeTest {
 
         // then
         BlogSearch blogSearch = blogSearchPopularFacade.searchBlog(blogSearchRequest);
-        Assertions.assertEquals(blogName, blogSearch.documents().get(0).blogname());
+        Assertions.assertEquals(blogName, blogSearch.documents().get(0).blogName());
         Assertions.assertEquals(contents, blogSearch.documents().get(0).contents());
         Assertions.assertEquals(thumbnail, blogSearch.documents().get(0).thumbnail());
         Assertions.assertEquals(title, blogSearch.documents().get(0).title());

@@ -52,7 +52,7 @@ class BlogSearchServiceTest {
 
         // then
         BlogSearch blogSearchResults = searchService.getBlogSearchResults(blogSearchRequest);
-        Assertions.assertEquals(blogName, blogSearchResults.documents().get(0).blogname());
+        Assertions.assertEquals(blogName, blogSearchResults.documents().get(0).blogName());
         Assertions.assertEquals(contents, blogSearchResults.documents().get(0).contents());
         Assertions.assertEquals(thumbnail, blogSearchResults.documents().get(0).thumbnail());
         Assertions.assertEquals(title, blogSearchResults.documents().get(0).title());

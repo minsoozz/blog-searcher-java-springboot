@@ -63,7 +63,7 @@ class BlogSearchRestControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.message").value("success"))
-            .andExpect(jsonPath("$.data.documents[0].blogname").value("민수의 자바"))
+            .andExpect(jsonPath("$.data.documents[0].blogName").value("민수의 자바"))
             .andExpect(jsonPath("$.data.documents[0].contents").value("테스트 코드는 이렇게 작성합니다 ~~"))
             .andExpect(jsonPath("$.data.documents[0].thumbnail").value("null"))
             .andExpect(jsonPath("$.data.documents[0].title").value("테스트 코드 작성 방법 가이드"))

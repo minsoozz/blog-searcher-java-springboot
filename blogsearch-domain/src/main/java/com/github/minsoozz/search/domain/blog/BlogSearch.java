@@ -15,7 +15,7 @@ public record BlogSearch(List<Document> documents, Meta meta) {
         return new BlogSearch(documents, meta);
     }
 
-    public record Document(String blogname,
+    public record Document(String blogName,
                            String contents,
                            LocalDateTime datetime,
                            String thumbnail,

@@ -101,9 +101,9 @@ GET /api/v1/blog/search
 
 ### `documents` 필드
 
-| 필드명    | 타입   | 설명                      |
-| --------- | ------ | ------------------------- |
-| blogname  | string | 블로그 이름               |
+| 필드명       | 타입   | 설명                      |
+|-----------| ------ | ------------------------- |
+| blogName  | string | 블로그 이름               |
 | contents  | string | 블로그 내용                 |
 | datetime  | string | 작성 일시            |
 | thumbnail | string | 블로그 썸네일 이미지 URL         |

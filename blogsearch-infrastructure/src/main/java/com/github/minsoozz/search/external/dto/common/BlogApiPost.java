@@ -18,7 +18,7 @@ public record BlogApiPost(String blogName,
 
     public static BlogApiPost from(final Document document) {
         return new BlogApiPost(
-            document.blogname(),
+            document.blogName(),
             document.contents(),
             document.datetime(),
             document.thumbnail(),

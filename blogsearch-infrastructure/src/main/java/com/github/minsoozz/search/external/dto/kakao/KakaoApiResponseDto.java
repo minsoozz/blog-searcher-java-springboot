@@ -27,7 +27,7 @@ public record KakaoApiResponseDto(List<Document> documents, Meta meta) implement
         return BlogApiMetadata.of(this.meta.isEnd, this.meta.pageableCount, this.meta.totalCount);
     }
 
-    public record Document(String blogname,
+    public record Document(@JsonProperty("blogname") String blogName,
                            String contents,
                            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
                            LocalDateTime datetime,
