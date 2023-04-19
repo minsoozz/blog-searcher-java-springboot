@@ -23,9 +23,10 @@ public class EmbeddedRedisConfiguration {
 
     @PostConstruct
     public void start() {
+        final String configLine = "maxmemory " + maxHeap;
         redisServer = RedisServer.builder()
             .port(redisPort)
-            .setting("maxmemory " + maxHeap)
+            .setting(configLine)
             .build();
         redisServer.start();
     }

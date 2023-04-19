@@ -24,9 +24,10 @@ public class RedissonConfiguration {
     @Bean
     @DependsOn("embeddedRedisConfiguration")
     public RedissonClient redissonClient() {
+        final String address = "redis://" + redisHost + ":" + redisPort;
         Config config = new Config();
         config.useSingleServer()
-            .setAddress("redis://" + redisHost + ":" + redisPort);
+            .setAddress(address);
         return Redisson.create(config);
     }
 }
