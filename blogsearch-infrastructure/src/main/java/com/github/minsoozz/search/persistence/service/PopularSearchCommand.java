@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author minsoozz
- * @date 2023.03.22
+ * @date 2023.07.01
  */
 @Service
 public class PopularSearchCommand {
@@ -18,6 +18,6 @@ public class PopularSearchCommand {
     }
 
     public PopularSearchJpaEntity save(final PopularSearchJpaEntity popularSearchJpaEntity) {
-        return popularSearchRepository.saveAndFlush(popularSearchJpaEntity);
+        return popularSearchRepository.save(popularSearchJpaEntity);
     }
 }

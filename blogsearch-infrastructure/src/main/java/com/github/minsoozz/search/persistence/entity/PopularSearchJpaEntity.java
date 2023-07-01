@@ -1,6 +1,7 @@
 package com.github.minsoozz.search.persistence.entity;
 
 import com.github.minsoozz.search.config.BaseEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 /**
  * @author minsoozz
- * @date 2023.03.22
+ * @date 2023.07.01
  */
 @Entity
 @Table(name = "popular_search",
@@ -32,10 +32,6 @@ public class PopularSearchJpaEntity extends BaseEntity {
     private String keyword;
 
     private int count;
-
-    @Version
-    @Column(name = "version")
-    private int version;
 
     public PopularSearchJpaEntity(String keyword) {
         this.keyword = keyword;
