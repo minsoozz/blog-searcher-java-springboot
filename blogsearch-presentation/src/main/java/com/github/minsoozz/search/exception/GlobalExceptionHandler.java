@@ -17,15 +17,8 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BlogSearchException.class)
-    ErrorResponseDto handleException(final BlogSearchException e) {
-        logger.error(e.getMessage());
-        return ErrorResponseDto.toErrorResponseDto(HttpStatus.BAD_REQUEST, e.getMessage());
-    }
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(FailedToAcquireLockException.class)
+    @ExceptionHandler(BusinessException.class)
     ErrorResponseDto handleException(final FailedToAcquireLockException e) {
         logger.error(e.getMessage());
         return ErrorResponseDto.toErrorResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

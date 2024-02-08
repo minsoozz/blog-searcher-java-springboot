@@ -29,14 +29,12 @@ public class BlogSearchService {
     public BlogSearch getBlogSearchResults(final BlogSearchRequest blogSearchRequest) {
         try {
             ApiResponseDto responseDto = blogApiCaller.searchBlogs(
-                blogSearchRequest.query(),
-                blogSearchRequest.page(),
-                blogSearchRequest.sort());
+                    blogSearchRequest.query(),
+                    blogSearchRequest.page(),
+                    blogSearchRequest.sort());
             return BlogSearchConverter.toBlog(responseDto);
         } catch (ApiBadRequestException e) {
-            StackTraceElement[] stackTraceElements = e.getStackTrace();
-            logger.error("ApiBadRequestException : {}", stackTraceElements[0]);
-            throw new BlogSearchException(e.getMessage());
+            throw new BlogSearchException(e);
         }
     }
 }

@@ -8,8 +8,9 @@ import com.github.minsoozz.search.exception.FailedToAcquireLockException;
 import com.github.minsoozz.search.persistence.dto.PopularSearchDto;
 import com.github.minsoozz.search.persistence.facade.PopularSearchFacade;
 import com.github.minsoozz.search.persistence.service.PopularSearchQuery;
-import java.util.List;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author minsoozz
@@ -22,8 +23,8 @@ public class PopularSearchService {
     private final PopularSearchFacade popularSearchFacade;
 
     public PopularSearchService(
-        final PopularSearchQuery popularSearchQuery,
-        final PopularSearchFacade popularSearchFacade) {
+            final PopularSearchQuery popularSearchQuery,
+            final PopularSearchFacade popularSearchFacade) {
         this.popularSearchQuery = popularSearchQuery;
         this.popularSearchFacade = popularSearchFacade;
     }
@@ -33,14 +34,14 @@ public class PopularSearchService {
             PopularSearchDto popularSearchDto = popularSearchFacade.savePopularSearch(query);
             return PopularSearchConverter.toPopularSearch(popularSearchDto);
         } catch (DistributedLockingException | DistributedLockAcquisitionFailedException e) {
-            throw new FailedToAcquireLockException();
+            throw new FailedToAcquireLockException(e);
         }
     }
 
     public List<PopularSearch> searchPopularKeywords() {
         return popularSearchQuery.findTop10Keywords()
-            .stream()
-            .map(PopularSearch::of)
-            .toList();
+                .stream()
+                .map(PopularSearch::of)
+                .toList();
     }
 }
