@@ -10,8 +10,4 @@ public record ErrorResponseDto(
     int code,
     String message
 ) {
-
-    public static ErrorResponseDto toErrorResponseDto(final HttpStatus httpStatus, final String message) {
-        return new ErrorResponseDto(httpStatus.value(), message);
-    }
 }
