@@ -51,3 +51,7 @@ management:
 
 logging.level:
   org.hibernate.SQL: debug
+
+redis:
+  docker:
+    enabled: false
