@@ -1,5 +1,5 @@
 rootProject.name = 'blog-searcher-java-springboot'
-include 'blogsearch-api'
-include 'blogsearch-domain'
-include 'blogsearch-infrastructure'
+include 'search-api'
+include 'domain'
+include 'infrastructure'
 

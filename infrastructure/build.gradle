@@ -1,0 +1,50 @@
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-validation'
+
+    }
+    implementation 'io.github.resilience4j:resilience4j-spring-boot2:2.0.2'
+    implementation 'io.github.resilience4j:resilience4j-all:2.0.2'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.20.0'
+    implementation 'com.h2database:h2:2.1.214'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
+
+    testImplementation 'com.h2database:h2:2.1.214'
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    testImplementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+def querydslDir = "src/main/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}

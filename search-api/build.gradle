@@ -1,0 +1,16 @@
+bootJar {
+    archiveFileName = 'blog-searcher.jar'
+    archiveVersion = '1.0.0'
+}
+dependencies {
+    implementation project(':domain')
+    implementation project(':infrastructure')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+tasks.named('bootJar') {
+    enabled = true
+}
+tasks.named('jar') {
+    enabled = false
+}
